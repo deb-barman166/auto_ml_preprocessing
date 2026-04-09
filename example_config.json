@@ -1,0 +1,46 @@
+{
+  "mode": "manual",
+  "active_agents": ["cleaning", "type_conversion", "missing", "encoding", "feature", "validation"],
+
+  "cleaning": {
+    "drop_columns": ["PassengerId", "Name", "Ticket", "Cabin"],
+    "normalize_text": true
+  },
+
+  "missing": {
+    "Age":      "median",
+    "Fare":     "mean",
+    "Embarked": "mode"
+  },
+
+  "encoding": {
+    "Sex":      "label",
+    "Embarked": "onehot"
+  },
+
+  "features": {
+    "derived": [
+      {
+        "type":  "ratio",
+        "col_a": "Fare",
+        "col_b": "Age",
+        "name":  "fare_per_age"
+      },
+      {
+        "type": "square",
+        "col":  "Age"
+      }
+    ]
+  },
+
+  "global": {
+    "null_drop_threshold":   0.6,
+    "low_card_threshold":    10,
+    "med_card_threshold":    50,
+    "normalize":             false,
+    "scale_method":          "minmax",
+    "log_transform_skewed":  false,
+    "datetime_include_time": false,
+    "normalize_text":        true
+  }
+}

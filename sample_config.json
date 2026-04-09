@@ -1,0 +1,46 @@
+{
+  "mode": "manual",
+  "active_agents": ["cleaning", "type_conversion", "missing", "encoding", "feature", "validation"],
+  "global": {
+    "drop_duplicates": true,
+    "null_drop_threshold": 0.6,
+    "variance_threshold": 1e-10,
+    "low_card_threshold": 10,
+    "med_card_threshold": 50,
+    "normalize": false,
+    "scale_method": "minmax",
+    "log_transform_skewed": false,
+    "datetime_include_time": false,
+    "normalize_text": true
+  },
+  "cleaning": {
+    "drop_columns": ["id", "row_id"],
+    "normalize_text": true
+  },
+  "missing": {
+    "age":        "median",
+    "salary":     "mean",
+    "department": "unknown",
+    "join_date":  "ffill"
+  },
+  "encoding": {
+    "gender":       "label",
+    "city":         "onehot",
+    "product_tags": "multihot",
+    "user_id":      "frequency"
+  },
+  "type_conversion": {
+    "price":    "float",
+    "quantity": "int"
+  },
+  "features": {
+    "derived": [
+      {"type": "ratio",    "col_a": "revenue", "col_b": "cost",             "name": "profit_margin"},
+      {"type": "diff",     "col_a": "max_val",  "col_b": "min_val",          "name": "range_val"},
+      {"type": "agg_mean", "cols":  ["score1","score2","score3"],             "name": "avg_score"},
+      {"type": "log1p",    "col":   "salary"},
+      {"type": "square",   "col":   "age"}
+    ]
+  },
+  "output_path": "output/processed.csv"
+}
